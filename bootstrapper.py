@@ -5,7 +5,7 @@ import numpy as np
 import datetime
 
 model = tf.keras.Sequential([
-    keras.layers.Flatten(input_shape=[4]),
+    keras.layers.Flatten(input_shape=[6]),
     keras.layers.Dense(128, activation=tf.nn.relu),
     keras.layers.Dense(10, activation=tf.nn.softmax)
 ])
@@ -32,7 +32,7 @@ model.fit(all_input_data, all_output_data, epochs=100)
 for symbol in symbols:
     current_input = get_most_recent_input_data(symbol)
     time_value = datetime.datetime.fromtimestamp(current_input[1]).strftime('%Y-%m-%d %H:%M:%S')
-    current_input_string = '[ Time: ' + time_value + ', Average Price: ' + str(current_input[2]) + ', volume: ' + str(current_input[3]) + ' ]'
+    current_input_string = '[ Time: ' + time_value + ', Average Price: ' + str(round(current_input[2], 2)) + ', percent change: ' + str(round(current_input[3], 3)) + ', volume: ' + str(round(current_input[4], 2)) + ', recommendation: '+ str(round(current_input[5], 2)) + ' ]'
     print('Tomorrows prediction for ' + symbol + ' based on input: ' + current_input_string)
     print(model.predict([current_input])[0])
     print('\n')

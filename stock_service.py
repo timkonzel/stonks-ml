@@ -25,4 +25,7 @@ def get_candle_data(symbol):
             'time': response.t[x] 
         }
     return candles
+
+def get_recommendation_data(symbol):
+    return finnhub_client.recommendation_trends(symbol)
     
