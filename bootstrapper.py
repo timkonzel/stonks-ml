@@ -4,9 +4,9 @@ from tensorflow import keras
 import numpy as np
 
 model = tf.keras.Sequential([
-    keras.layers.Flatten(input_shape=[7]),
+    keras.layers.Flatten(input_shape=[4]),
     keras.layers.Dense(128, activation=tf.nn.relu),
-    keras.layers.Dense(8, activation=tf.nn.softmax)
+    keras.layers.Dense(10, activation=tf.nn.softmax)
 ])
 
 model.compile(
@@ -26,7 +26,7 @@ for symbol in symbols:
 
 training_input = np.array(all_input_data, dtype=float)
 training_output = np.array(all_output_data, dtype=float)
-model.fit(all_input_data, all_output_data, epochs=500)
+model.fit(all_input_data, all_output_data, epochs=100)
 
 for symbol in symbols:
     print('Tomorrows prediction for ' + symbol)

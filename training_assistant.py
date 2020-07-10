@@ -18,31 +18,32 @@ def format_training_data(symbol):
     return { 'input': training_input, 'output': training_output }
 
 def classify_percentage_change(change):
-    if change < -13:
+    if change < -6:
         return 0
-    elif change < -8:
+    elif change < -4:
         return 1
-    elif change < -4.5:
+    elif change < -2:
         return 2
     elif change < -1:
         return 3
-    elif change < 1:
+    elif change <= 0:
         return 4
-    elif change < 4.5:
+    elif change < 1:
         return 5
-    elif change < 8:
+    elif change < 2:
         return 6
-    elif change >= 8:
+    elif change < 4:
         return 7
+    elif change < 6:
+        return 8
+    elif change >= 6:
+        return 9
 
 def get_input_for_candle(candle, symbol):
     return [
         get_symbol_id(symbol),
         candle['time'],
-        candle['open'],
-        candle['close'],
-        candle['high'],
-        candle['low'],
+        get_average_candle_price(candle),
         candle['volume']
     ]
 
@@ -55,4 +56,5 @@ def get_most_recent_input_data(symbol):
 def get_symbol_id(symbol):
     return int.from_bytes(symbol.encode(), 'little')
     
-    
+def get_average_candle_price(candle):
+    return (candle['open'] + candle['close'] + candle['high'] + candle['low']) / 4
